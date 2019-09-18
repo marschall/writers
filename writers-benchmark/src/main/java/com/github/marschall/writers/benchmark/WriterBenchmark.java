@@ -23,6 +23,8 @@ import com.github.marschall.writers.AsciiOutputStreamWriter;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 public class WriterBenchmark {
+  
+  private static final int ITERATIONS = 1000;
 
   private PrintWriter printWriter;
 
@@ -30,46 +32,79 @@ public class WriterBenchmark {
 
   private Writer asciiOutputStreamWriter;
 
+  private ByteArrayOutputStream printWriterStream;
+
+  private ByteArrayOutputStream outputStreamWriterStream;
+
+  private ByteArrayOutputStream asciiOutputStreamWriterStream;
+
   @Setup
   public void setup() {
-    this.printWriter = new PrintWriter(new BufferedOutputStream(new ByteArrayOutputStream(4)), false, StandardCharsets.US_ASCII);
-    this.outputStreamWriter = new OutputStreamWriter(new BufferedOutputStream(new ByteArrayOutputStream(4)), StandardCharsets.US_ASCII);
-    this.asciiOutputStreamWriter = new AsciiOutputStreamWriter(new BufferedOutputStream(new ByteArrayOutputStream(4)));
+    this.printWriterStream = new ByteArrayOutputStream(4);
+    this.outputStreamWriterStream = new ByteArrayOutputStream(4);
+    this.asciiOutputStreamWriterStream = new ByteArrayOutputStream(4);
+    this.printWriter = new PrintWriter(new BufferedOutputStream(printWriterStream), false, StandardCharsets.US_ASCII);
+    this.outputStreamWriter = new OutputStreamWriter(new BufferedOutputStream(outputStreamWriterStream), StandardCharsets.US_ASCII);
+    this.asciiOutputStreamWriter = new AsciiOutputStreamWriter(new BufferedOutputStream(asciiOutputStreamWriterStream));
   }
 
   @Benchmark
   public PrintWriter writeSingleCharPrintWriter() {
-    this.printWriter.write(' ');
+    for (int i = 0; i < ITERATIONS; i++) {
+      this.printWriter.write(' ');
+    }
+    this.printWriter.flush();
+    this.printWriterStream.reset();
     return this.printWriter;
   }
 
   @Benchmark
   public Writer writeSingleCharOutputStreamWriter() throws IOException {
-    this.outputStreamWriter.write(' ');
+    for (int i = 0; i < ITERATIONS; i++) {
+      this.outputStreamWriter.write(' ');
+    }
+    this.outputStreamWriter.flush();
+    this.outputStreamWriterStream.reset();
     return this.outputStreamWriter;
   }
 
   @Benchmark
   public Writer writeSingleCharAsciiOutputStreamWriter() throws IOException {
-    this.asciiOutputStreamWriter.write("abcd123");
+    for (int i = 0; i < ITERATIONS; i++) {
+      this.asciiOutputStreamWriter.write(' ');
+    }
+    this.asciiOutputStreamWriter.flush();
+    this.asciiOutputStreamWriterStream.reset();
     return this.asciiOutputStreamWriter;
   }
   
   @Benchmark
   public PrintWriter writeStringPrintWriter() {
-    this.printWriter.write("abcd123");
+    for (int i = 0; i < ITERATIONS; i++) {
+      this.printWriter.write("abcd123");
+    }
+    this.printWriter.flush();
+    this.printWriterStream.reset();
     return this.printWriter;
   }
   
   @Benchmark
   public Writer writeStringOutputStreamWriter() throws IOException {
-    this.outputStreamWriter.write("abcd123");
+    for (int i = 0; i < ITERATIONS; i++) {
+      this.outputStreamWriter.write("abcd123");
+    }
+    this.outputStreamWriter.flush();
+    this.outputStreamWriterStream.reset();
     return this.outputStreamWriter;
   }
   
   @Benchmark
   public Writer writeStringAsciiOutputStreamWriter() throws IOException {
-    this.asciiOutputStreamWriter.write("abcd123");
+    for (int i = 0; i < ITERATIONS; i++) {
+      this.asciiOutputStreamWriter.write("abcd123");
+    }
+    this.asciiOutputStreamWriter.flush();
+    this.asciiOutputStreamWriterStream.reset();
     return this.asciiOutputStreamWriter;
   }
 
