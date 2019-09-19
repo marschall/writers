@@ -11,9 +11,11 @@ import java.util.Objects;
  * <p>
  * For non-ASCII characters {@code '?'} will be written instead like
  * {@link OutputStreamWriter} does.
+ * <p>
  *
- * @implNote this writer does not allocate any objects
- *           or call methods that allocate objects
+ * @implNote This class is thread-safe.
+ * @implNote This writer does not allocate any objects
+ *           or call methods that allocate objects.
  */
 public final class AsciiOutputStreamWriter extends Writer {
 
