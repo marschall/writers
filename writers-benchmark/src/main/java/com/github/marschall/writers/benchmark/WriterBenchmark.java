@@ -40,9 +40,9 @@ public class WriterBenchmark {
 
   @Setup
   public void setup() {
-    this.printWriterStream = new ByteArrayOutputStream(4);
-    this.outputStreamWriterStream = new ByteArrayOutputStream(4);
-    this.asciiOutputStreamWriterStream = new ByteArrayOutputStream(4);
+    this.printWriterStream = new ByteArrayOutputStream(8196);
+    this.outputStreamWriterStream = new ByteArrayOutputStream(8196);
+    this.asciiOutputStreamWriterStream = new ByteArrayOutputStream(8196);
     this.printWriter = new PrintWriter(new BufferedOutputStream(printWriterStream), false, StandardCharsets.US_ASCII);
     this.outputStreamWriter = new OutputStreamWriter(new BufferedOutputStream(outputStreamWriterStream), StandardCharsets.US_ASCII);
     this.asciiOutputStreamWriter = new AsciiOutputStreamWriter(new BufferedOutputStream(asciiOutputStreamWriterStream));
