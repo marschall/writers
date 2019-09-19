@@ -23,7 +23,7 @@ import com.github.marschall.writers.AsciiOutputStreamWriter;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 public class WriterBenchmark {
-  
+
   private static final int ITERATIONS = 1000;
 
   private PrintWriter printWriter;
@@ -77,7 +77,7 @@ public class WriterBenchmark {
     this.asciiOutputStreamWriterStream.reset();
     return this.asciiOutputStreamWriter;
   }
-  
+
   @Benchmark
   public PrintWriter writeStringPrintWriter() {
     for (int i = 0; i < ITERATIONS; i++) {
@@ -87,7 +87,7 @@ public class WriterBenchmark {
     this.printWriterStream.reset();
     return this.printWriter;
   }
-  
+
   @Benchmark
   public Writer writeStringOutputStreamWriter() throws IOException {
     for (int i = 0; i < ITERATIONS; i++) {
@@ -97,7 +97,7 @@ public class WriterBenchmark {
     this.outputStreamWriterStream.reset();
     return this.outputStreamWriter;
   }
-  
+
   @Benchmark
   public Writer writeStringAsciiOutputStreamWriter() throws IOException {
     for (int i = 0; i < ITERATIONS; i++) {

@@ -71,7 +71,7 @@ public final class AsciiOutputStreamWriter extends Writer {
   @Override
   public Writer append(CharSequence csq, int start, int end) throws IOException {
     if (csq == null) {
-      return writeAciiNull();
+      return writeAsciiStartEnd("null", start, end);
     } else {
       return writeAsciiStartEnd(csq, start, end);
     }

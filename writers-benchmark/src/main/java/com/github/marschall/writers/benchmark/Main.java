@@ -11,7 +11,8 @@ public class Main {
   public static void main(String[] args) throws RunnerException {
     String fileName = "writers-result.txt";
     Options options = new OptionsBuilder()
-        .include(".*WriterBenchmark.*")
+//        .include(".*WriterBenchmark.*")
+        .include(".*MethodBenchmark.*")
         .warmupIterations(10)
         .measurementIterations(10)
         .resultFormat(ResultFormatType.TEXT)

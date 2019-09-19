@@ -65,9 +65,9 @@
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <source>8</source>
+          <source>11</source>
           <links>
-            <link>http://docs.oracle.com/javase/8/docs/api/</link>
+            <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
           </links>
           <tags>
             <tag>
@@ -133,10 +133,6 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.1.1</version>
-        </plugin>
-        <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
@@ -195,7 +191,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
+          <version>2.22.2</version>
         </plugin>
         <plugin>
           <groupId>codes.rafael.modulemaker</groupId>
@@ -239,11 +235,6 @@
               </pluginExecutions>
             </lifecycleMappingMetadata>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>com.github.ferstl</groupId>
-          <artifactId>jitwatch-jarscan-maven-plugin</artifactId>
-          <version>1.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
