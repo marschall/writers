@@ -27,7 +27,7 @@ public class MethodBenchmark {
     for (int i = 0; i < s.length(); i++) {
       mask |= s.charAt(i) & 0b1111111110000000;
     }
-    return mask != 0;
+    return mask == 0;
   }
 
   static boolean fitsInAsciiIf(String s) {
