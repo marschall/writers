@@ -177,16 +177,6 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
     return this;
   }
 
-  private void writeNonAsciiOffsetLength(char[] cbuf, int offset, int length) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  private void writeNonAsciiOffsetLength(String str, int offset, int length) {
-    // TODO Auto-generated method stub
-    
-  }
-
   private Writer writeAscii(char c) throws IOException {
     this.buffer[this.position++] = (byte) (c & 0xff);
     return this;
@@ -210,12 +200,16 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
     }
   }
 
-  private Writer writeAsciiOffsetLength(String s, int offset, int length) throws IOException {
+  private void writeAsciiOffsetLength(String s, int offset, int length) throws IOException {
     int from = Objects.checkFromIndexSize(offset, length, s.length());
     for (int i = from; i < offset + length; i++) {
       this.buffer[this.position++] = (byte) (s.charAt(i) & 0xff);
     }
-    return this;
+  }
+
+  private void writeNonAsciiOffsetLength(String s, int offset, int length) {
+    // TODO Auto-generated method stub
+    
   }
 
   private void writeAsciiOffsetLength(char[] cbuf, int offset, int length) throws IOException {
@@ -223,6 +217,11 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
     for (int i = from; i < offset + length; i++) {
       this.buffer[this.position++] = (byte) (cbuf[i] & 0xff);
     }
+  }
+
+  private void writeNonAsciiOffsetLength(char[] cbuf, int offset, int length) {
+    // TODO Auto-generated method stub
+    
   }
 
   @Override
