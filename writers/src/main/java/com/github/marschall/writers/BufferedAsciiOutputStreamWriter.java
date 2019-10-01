@@ -2,10 +2,23 @@ package com.github.marschall.writers;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Objects;
 
-final class BufferedAsciiOutputStreamWriter extends Writer {
+
+/**
+ * A writer encodes to ASCII and buffers.
+ * <p>
+ * For non-ASCII characters {@code '?'} will be written instead like
+ * {@link OutputStreamWriter} does.
+ * <p>
+ *
+ * @implNote This class is <b>not</b> thread-safe.
+ * @implNote This writer does not allocate any objects
+ *           or call methods that allocate objects.
+ */
+public final class BufferedAsciiOutputStreamWriter extends Writer {
 
   private final OutputStream out;
 
@@ -114,7 +127,11 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
 
   @Override
   public Writer append(CharSequence csq) throws IOException {
-    return this.append(csq, 0, csq.length());
+    if (csq == null) {
+      return this.append("null", 0, 4);
+    } else {
+      return this.append(csq, 0, csq.length());
+    }
   }
 
   @Override
@@ -157,7 +174,7 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
   private void writeSegmentedOffsetLenth(String s, int offset, int totalLength) throws IOException {
     int written = 0;
     while (written < totalLength) {
-      int length = Math.min(this.buffer.length, written - totalLength);
+      int length = Math.min(this.buffer.length, totalLength - written);
       this.write(s, offset + written, length);
       written += length;
     }
@@ -166,7 +183,7 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
   private void writeSegmented(char[] cbuf, int offset, int totalLength) throws IOException {
     int written = 0;
     while (written < totalLength) {
-      int length = Math.min(this.buffer.length, written - totalLength);
+      int length = Math.min(this.buffer.length, totalLength - written);
       this.write(cbuf, offset + written, length);
       written += length;
     }
@@ -208,8 +225,17 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
   }
 
   private void writeNonAsciiOffsetLength(String s, int offset, int length) {
-    // TODO Auto-generated method stub
-    
+    int from = Objects.checkFromIndexSize(offset, length, s.length());
+    for (int i = from; i < offset + length; i++) {
+      char c = s.charAt(i);
+      byte b;
+      if (Repertoires.fitsInAscii(c)) {
+        b = (byte) (c & 0xff);
+      } else {
+        b = '?';
+      }
+      this.buffer[this.position++] = b;
+    }
   }
 
   private void writeAsciiOffsetLength(char[] cbuf, int offset, int length) throws IOException {
@@ -220,8 +246,17 @@ final class BufferedAsciiOutputStreamWriter extends Writer {
   }
 
   private void writeNonAsciiOffsetLength(char[] cbuf, int offset, int length) {
-    // TODO Auto-generated method stub
-    
+    int from = Objects.checkFromIndexSize(offset, length, cbuf.length);
+    for (int i = from; i < offset + length; i++) {
+      char c = cbuf[i];
+      byte b;
+      if (Repertoires.fitsInAscii(c)) {
+        b = (byte) (c & 0xff);
+      } else {
+        b = '?';
+      }
+      this.buffer[this.position++] = b;
+    }
   }
 
   @Override

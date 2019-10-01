@@ -1,5 +1,6 @@
 package com.github.marschall.writers;
 
+import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,7 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -29,19 +29,19 @@ abstract class AbstractPrintWriterCompatibilityTest {
   abstract Writer newWriter(OutputStream out);
 
   @Test
-  void wirteSingleChar() throws IOException {
+  void writeSingleChar() throws IOException {
     this.writer.write('a');
     assertContent((byte) 'a');
   }
 
   @Test
-  void wirteSingleCharInvalid() throws IOException {
+  void writeSingleCharInvalid() throws IOException {
     this.writer.write(255);
     assertContent((byte) '?');
   }
 
   @Test
-  void wirteSingleCharInvalidNonBmp() throws IOException {
+  void writeSingleCharInvalidNonBmp() throws IOException {
     this.writer.write(0x1f43b);
     assertContent((byte) '?');
   }
@@ -54,13 +54,13 @@ abstract class AbstractPrintWriterCompatibilityTest {
 
   @Test
   void writeCharArrayNull() throws IOException {
-    assertThrows(NullPointerException.class, () -> this.writer.write((String) null));
+    assertThrows(NullPointerException.class, () -> this.writer.write((char[]) null));
     assertContent("");
   }
 
   @Test
   void writeCharArrayNullOffsetLenght() throws IOException {
-    assertThrows(NullPointerException.class, () -> this.writer.write((String) null, 2, 2));
+    assertThrows(NullPointerException.class, () -> this.writer.write((char[]) null, 2, 2));
     assertContent("");
   }
 
@@ -162,7 +162,7 @@ abstract class AbstractPrintWriterCompatibilityTest {
 
   private void assertContent(String expected) throws IOException {
     this.writer.flush();
-    assertEquals(expected, new String(this.outputStream.toByteArray(), StandardCharsets.US_ASCII));
+    assertEquals(expected, new String(this.outputStream.toByteArray(), US_ASCII));
   }
 
 }
