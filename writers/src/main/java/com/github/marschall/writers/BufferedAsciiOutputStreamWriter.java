@@ -30,11 +30,11 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
 
   /**
    * Constructs a new {@link BufferedAsciiOutputStreamWriter}
-   * 
+   *
    * @param out the output stream to delegate to, not {@code null}
-   * @param the buffer size in bytes, must be positive
+   * @param bufferSize the buffer size in bytes, must be positive
    * @throws NullPointerException when {@code out} is {@code null}
-   * @throws bufferSize if {@code bufferSize} negative or 0
+   * @throws IllegalArgumentException if {@code bufferSize} negative or 0
    */
   public BufferedAsciiOutputStreamWriter(OutputStream out, int bufferSize) {
     Objects.requireNonNull(out, "out");
@@ -50,7 +50,7 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
   /**
    * Constructs a new {@link BufferedAsciiOutputStreamWriter} with a
    * default buffer size of 8192.
-   * 
+   *
    * @param out the output stream to delegate to, not {@code null}
    * @throws NullPointerException when {@code out} is {@code null}
    */
@@ -75,7 +75,7 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
       // will throw later
       return true;
     }
-    if (capacity > this.buffer.length - this.position) {
+    if (capacity > (this.buffer.length - this.position)) {
       this.flushBuffer();
     }
     return capacity <= this.buffer.length;
@@ -155,7 +155,7 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
     this.closedCheck();
     this.ensureCapacity(1);
     if (Repertoires.fitsInAscii(c)) {
-      this.writeAscii((char) c);
+      this.writeAscii(c);
     } else {
       this.writeNonAscii();
     }
@@ -219,14 +219,14 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
 
   private void writeAsciiOffsetLength(String s, int offset, int length) throws IOException {
     int from = Objects.checkFromIndexSize(offset, length, s.length());
-    for (int i = from; i < offset + length; i++) {
+    for (int i = from; i < (offset + length); i++) {
       this.buffer[this.position++] = (byte) (s.charAt(i) & 0xff);
     }
   }
 
   private void writeNonAsciiOffsetLength(String s, int offset, int length) {
     int from = Objects.checkFromIndexSize(offset, length, s.length());
-    for (int i = from; i < offset + length; i++) {
+    for (int i = from; i < (offset + length); i++) {
       char c = s.charAt(i);
       byte b;
       if (Repertoires.fitsInAscii(c)) {
@@ -240,14 +240,14 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
 
   private void writeAsciiOffsetLength(char[] cbuf, int offset, int length) throws IOException {
     int from = Objects.checkFromIndexSize(offset, length, cbuf.length);
-    for (int i = from; i < offset + length; i++) {
+    for (int i = from; i < (offset + length); i++) {
       this.buffer[this.position++] = (byte) (cbuf[i] & 0xff);
     }
   }
 
   private void writeNonAsciiOffsetLength(char[] cbuf, int offset, int length) {
     int from = Objects.checkFromIndexSize(offset, length, cbuf.length);
-    for (int i = from; i < offset + length; i++) {
+    for (int i = from; i < (offset + length); i++) {
       char c = cbuf[i];
       byte b;
       if (Repertoires.fitsInAscii(c)) {
