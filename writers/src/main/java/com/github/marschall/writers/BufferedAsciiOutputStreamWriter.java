@@ -8,14 +8,15 @@ import java.util.Objects;
 
 
 /**
- * A writer encodes to ASCII and buffers.
+ * A writer that encodes to ASCII and buffers.
  * <p>
- * For non-ASCII characters {@code '?'} will be written instead like
- * {@link OutputStreamWriter} does.
+ * For non-ASCII characters {@code '?'} will be written instead just
+ * like {@link OutputStreamWriter} does.
  * <p>
  *
  * @implNote This class is <b>not</b> thread-safe.
- * @implNote This writer does not allocate any objects
+ * @implNote This writer does not allocate any objects, beyond
+ *           a {@code byte[]} for buffering allocated in the constructor,
  *           or call methods that allocate objects.
  */
 public final class BufferedAsciiOutputStreamWriter extends Writer {

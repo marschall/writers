@@ -7,10 +7,10 @@ import java.io.Writer;
 import java.util.Objects;
 
 /**
- * A writer encodes to ASCII.
+ * A writer that encodes to ASCII.
  * <p>
- * For non-ASCII characters {@code '?'} will be written instead like
- * {@link OutputStreamWriter} does.
+ * For non-ASCII characters {@code '?'} will be written instead just
+ * like {@link OutputStreamWriter} does.
  * <p>
  *
  * @implNote This class is thread-safe.
@@ -23,7 +23,7 @@ public final class AsciiOutputStreamWriter extends Writer {
 
   /**
    * Constructs a new {@link AsciiOutputStreamWriter}
-   * 
+   *
    * @param out the output stream to delegate to, not {@code null}
    * @throws NullPointerException when {@code out} is {@code null}
    */
@@ -64,18 +64,18 @@ public final class AsciiOutputStreamWriter extends Writer {
   @Override
   public Writer append(CharSequence csq) throws IOException {
     if (csq == null) {
-      return writeAciiNull();
+      return this.writeAciiNull();
     } else {
-      return writeAsciiStartEnd(csq, 0, csq.length());
+      return this.writeAsciiStartEnd(csq, 0, csq.length());
     }
   }
 
   @Override
   public Writer append(CharSequence csq, int start, int end) throws IOException {
     if (csq == null) {
-      return writeAsciiStartEnd("null", start, end);
+      return this.writeAsciiStartEnd("null", start, end);
     } else {
-      return writeAsciiStartEnd(csq, start, end);
+      return this.writeAsciiStartEnd(csq, start, end);
     }
   }
 
@@ -85,7 +85,7 @@ public final class AsciiOutputStreamWriter extends Writer {
   }
 
   private Writer writeAciiNull() throws IOException {
-    return writeAsciiStartEnd("null", 0, 4);
+    return this.writeAsciiStartEnd("null", 0, 4);
   }
 
   private Writer writeAscii(char c) throws IOException {
@@ -117,7 +117,7 @@ public final class AsciiOutputStreamWriter extends Writer {
   private Writer writeAsciiOffsetLength(String s, int offset, int length) throws IOException {
     synchronized (this.lock) {
       int from = Objects.checkFromIndexSize(offset, length, s.length());
-      for (int i = from; i < offset + length; i++) {
+      for (int i = from; i < (offset + length); i++) {
         char c = s.charAt(i);
         if (Repertoires.fitsInAscii(c)) {
           this.out.write(c);
@@ -132,7 +132,7 @@ public final class AsciiOutputStreamWriter extends Writer {
   private void writeAsciiOffsetLength(char[] cbuf, int offset, int length) throws IOException {
     synchronized (this.lock) {
       int from = Objects.checkFromIndexSize(offset, length, cbuf.length);
-      for (int i = from; i < offset + length; i++) {
+      for (int i = from; i < (offset + length); i++) {
         char c = cbuf[i];
         if (Repertoires.fitsInAscii(c)) {
           this.out.write(c);
