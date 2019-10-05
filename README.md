@@ -1,4 +1,4 @@
-Writers
+Writers [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.marschall/writers/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.marschall/writers) [![Javadocs](https://www.javadoc.io/badge/com.github.marschall/writers.svg)](https://www.javadoc.io/doc/com.github.marschall/writers)
 =======
 
 Implementations of `java.io.Writer` with different trade-offs.
