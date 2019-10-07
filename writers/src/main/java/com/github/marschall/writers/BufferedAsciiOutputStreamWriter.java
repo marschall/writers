@@ -191,12 +191,12 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
   }
 
   private Writer writeNonAscii() throws IOException {
-    this.buffer[this.position++] = (byte) ('?' & 0xff);
+    this.buffer[this.position++] = (byte) '?';
     return this;
   }
 
   private Writer writeAscii(char c) throws IOException {
-    this.buffer[this.position++] = (byte) (c & 0xff);
+    this.buffer[this.position++] = (byte) c;
     return this;
   }
 
@@ -214,14 +214,14 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
       if (!Repertoires.fitsInAscii(c)) {
         c = '?';
       }
-      this.buffer[this.position++] = (byte) (c & 0xff);
+      this.buffer[this.position++] = (byte) c;
     }
   }
 
   private void writeAsciiOffsetLength(String s, int offset, int length) throws IOException {
     int from = Objects.checkFromIndexSize(offset, length, s.length());
     for (int i = from; i < (offset + length); i++) {
-      this.buffer[this.position++] = (byte) (s.charAt(i) & 0xff);
+      this.buffer[this.position++] = (byte) s.charAt(i);
     }
   }
 
@@ -231,7 +231,7 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
       char c = s.charAt(i);
       byte b;
       if (Repertoires.fitsInAscii(c)) {
-        b = (byte) (c & 0xff);
+        b = (byte) c;
       } else {
         b = '?';
       }
@@ -252,7 +252,7 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
       char c = cbuf[i];
       byte b;
       if (Repertoires.fitsInAscii(c)) {
-        b = (byte) (c & 0xff);
+        b = (byte) c;
       } else {
         b = '?';
       }
