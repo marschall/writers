@@ -9,7 +9,7 @@
   <inceptionYear>2019</inceptionYear>
   <url>https://github.com/marschall/writers</url>
   <name>Writers Parent</name>
-  <description>Utility methods for dealing with java.lang.CharSequence</description>
+  <description>Writers Parent POM</description>
   
   <developers>
     <developer>
@@ -156,7 +156,7 @@
         <plugin>
           <groupId>org.jboss.jandex</groupId>
           <artifactId>jandex-maven-plugin</artifactId>
-          <version>1.0.6</version>
+          <version>1.0.8</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
