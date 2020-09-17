@@ -218,11 +218,11 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
     }
   }
 
+  @SuppressWarnings("deprecation") // we know the content is ASCII, therefore this is fine
   private void writeAsciiOffsetLength(String s, int offset, int length) throws IOException {
-    int from = Objects.checkFromIndexSize(offset, length, s.length());
-    for (int i = from; i < (offset + length); i++) {
-      this.buffer[this.position++] = (byte) s.charAt(i);
-    }
+    Objects.checkFromIndexSize(offset, length, s.length());
+    s.getBytes(offset, offset + length, this.buffer, this.position);
+    this.position += length;
   }
 
   private void writeNonAsciiOffsetLength(String s, int offset, int length) {

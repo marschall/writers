@@ -12,6 +12,7 @@ Currently we only offer the following two classes:
   * thread-safe
 * `com.github.marschall.writers.BufferedAsciiOutputStreamWriter`, only supports [US-ASCII](https://en.wikipedia.org/wiki/ASCII) but also buffers like a `java.io.BufferedOutputStream`. This can result in more efficient writes than using `com.github.marschall.writers.AsciiOutputStreamWriter` with `java.io.BufferedOutputStream`.
   * does not allocate any objects beyond the initial `byte[]`, the `#write` and `#append` methods do not allocate memory
+  * uses bulk array copy methods on Java 9+
   * not thread-safe
 
 This project requires Java 11.
