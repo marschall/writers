@@ -128,6 +128,10 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
 
   @Override
   public Writer append(CharSequence csq) throws IOException {
+    if (csq instanceof String) {
+      this.write((String) csq);
+      return this;
+    }
     if (csq == null) {
       return this.append("null", 0, 4);
     } else {
@@ -137,6 +141,10 @@ public final class BufferedAsciiOutputStreamWriter extends Writer {
 
   @Override
   public Writer append(CharSequence csq, int start, int end) throws IOException {
+    if (csq instanceof String) {
+      this.write((String) csq, start, end - start);
+      return this;
+    }
     CharSequence charSequence = csq != null ? csq : "null";
     this.closedCheck();
     if (this.ensureCapacity(end - start)) {
