@@ -33,7 +33,7 @@ public class WriterBenchmark {
   private Writer outputStreamWriter;
 
   private Writer asciiOutputStreamWriter;
-  
+
   private Writer bufferedAsciiOutputStreamWriter;
 
   private ByteArrayOutputStream printWriterStream;
@@ -41,7 +41,7 @@ public class WriterBenchmark {
   private ByteArrayOutputStream outputStreamWriterStream;
 
   private ByteArrayOutputStream asciiOutputStreamWriterStream;
-  
+
   private ByteArrayOutputStream bufferedAsciiOutputStreamWriterStream;
 
   @Setup
@@ -85,7 +85,7 @@ public class WriterBenchmark {
     this.asciiOutputStreamWriterStream.reset();
     return this.asciiOutputStreamWriter;
   }
-  
+
   @Benchmark
   public Writer writeSingleCharBufferedAsciiOutputStreamWriter() throws IOException {
     for (int i = 0; i < ITERATIONS; i++) {
@@ -125,7 +125,7 @@ public class WriterBenchmark {
     this.asciiOutputStreamWriterStream.reset();
     return this.asciiOutputStreamWriter;
   }
-  
+
   @Benchmark
   public Writer writeStringBufferedAsciiOutputStreamWriter() throws IOException {
     for (int i = 0; i < ITERATIONS; i++) {

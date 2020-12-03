@@ -39,8 +39,6 @@ public class MethodBenchmark {
     return true;
   }
 
-
-
   static boolean fitsInAscii(char c) {
     return c <= 127;
   }
