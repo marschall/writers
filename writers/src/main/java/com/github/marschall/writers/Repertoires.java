@@ -7,11 +7,11 @@ final class Repertoires {
   }
   
   static boolean fitsInAscii(int i) {
-    return i <= 127;
+    return (i & 0b11111111_11111111_11111111_10000000) == 0;
   }
 
   static boolean fitsInAscii(char c) {
-    return c <= 127;
+    return (c & 0b11111111_11111111_11111111_10000000) == 0;
   }
 
   static boolean fitsInAscii(char[] cbuf, int offset, int length) {
